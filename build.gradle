@@ -29,6 +29,9 @@ dependencies {
 //	implementation 'io.springfox:springfox-swagger-ui:3.0.0'
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'
 	implementation 'org.hibernate:hibernate-validator:8.0.0.Final'
+	// https://mvnrepository.com/artifact/org.springframework/spring-websocket
+	implementation 'org.springframework:spring-websocket:6.0.4'
+
 }
 
 tasks.named('test') {
