@@ -3,7 +3,6 @@ package com.moore.ElectricCarService.controllers;
 import com.moore.ElectricCarService.dtos.ChargingStationInfo;
 import com.moore.ElectricCarService.entities.ChargingStation;
 import com.moore.ElectricCarService.services.ChargingStationService;
-import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
