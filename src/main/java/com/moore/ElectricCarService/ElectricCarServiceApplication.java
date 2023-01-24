@@ -1,5 +1,6 @@
 package com.moore.ElectricCarService;
 
+import org.jobrunr.scheduling.JobScheduler;
 import org.jobrunr.jobs.mappers.JobMapper;
 import org.jobrunr.storage.InMemoryStorageProvider;
 import org.jobrunr.storage.StorageProvider;
@@ -20,3 +21,4 @@ public class ElectricCarServiceApplication {
 		SpringApplication.run(ElectricCarServiceApplication.class, args);
 	}
 }
+

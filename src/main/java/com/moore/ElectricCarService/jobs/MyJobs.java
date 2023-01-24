@@ -1,18 +1,32 @@
 package com.moore.ElectricCarService.jobs;
 
-import com.moore.ElectricCarService.entities.ElectricRate;
-import com.moore.ElectricCarService.repos.ElectricRateRepository;
-import jakarta.annotation.PostConstruct;
-import lombok.val;
-import org.jobrunr.scheduling.JobScheduler;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
+import org.jobrunr.jobs.annotations.Job;
+import org.jobrunr.jobs.context.JobContext;
+import org.jobrunr.jobs.context.JobDashboardProgressBar;
+import org.jobrunr.jobs.context.JobRunrDashboardLogger;
+import org.jobrunr.spring.annotations.Recurring;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.jobrunr.scheduling.JobScheduler;
 
-import java.time.OffsetDateTime;
-import java.util.Random;
+@Component
+public class MyJobs {
 
+    private static final Logger LOGGER = new JobRunrDashboardLogger(LoggerFactory.getLogger(MyJobs.class));
+
+    @Autowired
+    JobScheduler jobScheduler;
+
+    @Recurring(id = "my-recurring-job", cron = "0 0/15 * * *")
+    @Job(name = "My recurring job")
+    public void scheduleJob() {
+        System.out.println("Doing some work without arguments");
+    }
+}
+
+/*
 @Component
 class ElectricPriceJob{
     @Autowired
@@ -25,7 +39,7 @@ class ElectricPriceJob{
         });
     }
 }
-
+*/
 
 //@Service
 //public class ElectricPriceJob {
