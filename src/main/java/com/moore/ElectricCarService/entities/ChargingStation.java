@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.Hibernate;
 
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -15,23 +16,21 @@ import java.util.Objects;
 )
 @Getter
 @Setter
-@ToString
 @RequiredArgsConstructor
 @AllArgsConstructor
 public class ChargingStation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int id;
+    private int chargingStationId;
 
-    @Column(name = "identifier", unique = true)
+    @Column(unique = true)
     private String identifier;
-    @Column(name = "address")
     private String address;
-    @Column(name = "number")
     private int number;
-    @Column(name = "status")
     private ChargingStationStatus status = ChargingStationStatus.AVAILABLE;
+
+    @OneToMany(mappedBy = "chargingStation",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    private List<Transaction> transactionList;
 
     public ChargingStation(ChargingStationInfo chargingStationInfo){
         this.identifier = chargingStationInfo.getIdentifier();
@@ -44,11 +43,22 @@ public class ChargingStation {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         ChargingStation that = (ChargingStation) o;
-        return id != 0 && Objects.equals(id, that.id);
+        return chargingStationId != 0 && Objects.equals(chargingStationId, that.chargingStationId);
     }
 
     @Override
     public int hashCode() {
         return getClass().hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "ChargingStation{" +
+                "chargingStationId=" + chargingStationId +
+                ", identifier='" + identifier + '\'' +
+                ", address='" + address + '\'' +
+                ", number=" + number +
+                ", status=" + status +
+                '}';
     }
 }

@@ -1,5 +1,7 @@
 package com.moore.ElectricCarService.websocket;
 
+import com.moore.ElectricCarService.repos.ChargingStationRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
@@ -17,10 +19,13 @@ import java.util.regex.Pattern;
 @EnableWebSocket
 public class WebSocketConfig implements WebSocketConfigurer {
 
-    private Pattern routePattern = Pattern.compile("/chargingstation/(?<identifier>[^/]+)/connect");
+    @Autowired
+    SocketTextHandler socketTextHandler;
+
+    private final Pattern routePattern = Pattern.compile("/chargingstation/(?<identifier>[^/]+)/connect");
 
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(new SocketTextHandler(), "/chargingstation/{identifier}/connect").addInterceptors(createInterceptor());
+        registry.addHandler(socketTextHandler, "/chargingstation/{identifier}/connect").addInterceptors(createInterceptor());
     }
 
     private HandshakeInterceptor createInterceptor(){

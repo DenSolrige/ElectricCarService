@@ -10,7 +10,6 @@ import java.util.Optional;
 @Repository
 public interface ChargingStationRepository extends JpaRepository<ChargingStation, Integer> {
     void deleteByIdentifier(String identifier);
-
     List<ChargingStation> findByAddress(String address);
     Optional<ChargingStation> findByIdentifier(String identifier);
 }
